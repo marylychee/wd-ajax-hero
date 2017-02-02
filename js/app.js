@@ -57,4 +57,86 @@
   };
 
   // ADD YOUR CODE HERE
+
+  //listens for submissions on search form
+  let form = document.getElementById('form');
+  form.addEventListener('submit', function(evt) {
+    evt.preventDefault();
+
+    // gets user's input, empty validation done through html using "required" on the input
+    let search = document.getElementById("search").value;
+    console.log(search);
+
+    //refreshes previous search results
+    movies.length = 0;
+
+    //sends a http request to OMDB API using search result
+    let url = `http://www.omdbapi.com/?s=${search}`;
+
+    //handles HTTP response by pushing new `movie` object into global `movies` array
+    return fetch(url)
+    .then(function(res) {
+        return res.json();
+    })
+    .then(function(val) {
+        // console.log(val);
+        // console.log(val.Search);
+        return val.Search
+    })
+    .then(function(val){
+        console.log(val);
+        return val.map(function(obj){
+          var rObj = {};
+          rObj.id = obj.imdbID;
+          rObj.poster = obj.Poster;
+          rObj.title = obj.Title;
+          rObj.year = obj.Yearl
+          console.log(rObj);
+          return rObj;
+        });
+    })
+    .then(function(rVal){
+      rVal.forEach(function(movie) {
+        movies.push(movie);
+      });
+      renderMovies();
+      return rVal;
+    })
+
+  }); //eventListener
+
 })();
+
+//
+// // testing search and fetch function and handling of HTTP response
+// function searchMovie(search) {
+//     let url = `http://www.omdbapi.com/?s=${search}`;
+//
+//     return fetch(url)
+//     .then(function(res) {
+//         return res.json();
+//     })
+//     .then(function(val) {
+//         // console.log(val);
+//         // console.log(val.Search);
+//         return val.Search
+//     })
+//     .then(function(val){
+//         console.log(val);
+//         // logs an array
+//         return val.map(function(obj){
+//           var rObj = {};
+//           rObj.id = obj.imdbID;
+//           rObj.poster = obj.Poster;
+//           rObj.title = obj.Title;
+//           rObj.year = obj.Year;
+//           return rObj;
+//         })
+//     })
+//     .then(function(rVal){
+//       console.log(rVal);
+//       return rVal;
+//     })
+// }
+//
+// searchMovie('Gattaca');
