@@ -86,12 +86,12 @@
     .then(function(val){
         console.log(val);
         return val.map(function(obj){
-          var rObj = {};
-          rObj.id = obj.imdbID;
-          rObj.poster = obj.Poster;
-          rObj.title = obj.Title;
-          rObj.year = obj.Yearl
-          console.log(rObj);
+          let rObj = {
+              id : obj.imdbID,
+              poster : obj.Poster,
+              title : obj.Title,
+              year : obj.Year,
+          }
           return rObj;
         });
     })
@@ -107,7 +107,7 @@
 
 })();
 
-//
+
 // // testing search and fetch function and handling of HTTP response
 // function searchMovie(search) {
 //     let url = `http://www.omdbapi.com/?s=${search}`;
@@ -125,11 +125,13 @@
 //         console.log(val);
 //         // logs an array
 //         return val.map(function(obj){
-//           var rObj = {};
-//           rObj.id = obj.imdbID;
-//           rObj.poster = obj.Poster;
-//           rObj.title = obj.Title;
-//           rObj.year = obj.Year;
+//           // var rObj = {};
+//           let rObj = {
+//               id : obj.imdbID,
+//               poster : obj.Poster,
+//               title : obj.Title,
+//               year : obj.Year,
+//           }
 //           return rObj;
 //         })
 //     })
